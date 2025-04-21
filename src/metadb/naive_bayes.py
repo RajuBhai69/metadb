@@ -27,6 +27,43 @@ plt.show()
 
 
 theory:
+What is the Naive Bayes assumption?
+It assumes that all features are independent given the class label.
+
+Why is it called “naive”?
+Because it naively assumes feature independence, which rarely holds in real data.
+
+Which Naive Bayes variant is used for text classification?
+Multinomial Naive Bayes—it works well with discrete text data like word counts.
+
+What is the formula for Bayes’ Theorem?
+
+𝑃(𝐴∣𝐵) =𝑃(𝐵∣𝐴) ⋅ 𝑃(𝐴)/𝑃(𝐵)
+P(A∣B)= P(B)
+P(B∣A)⋅P(A)
+ 
+What is Laplace smoothing and why is it used?
+It adds 1 to each word count to avoid zero probability for unseen words.
+
+Why is text preprocessing important in spam classification?
+To clean and normalize data, improving accuracy (e.g., removing stopwords, punctuation).
+
+How do we evaluate a spam classifier? What metrics do we use?
+Accuracy, Precision, Recall, and F1-Score.
+
+
+What does a confusion matrix show?
+It shows the number of true positives, true negatives, false positives, and false negatives.
+
+What is precision and recall?
+
+Precision: TP / (TP + FP) – how many predicted spams were actual spam.
+
+Recall: TP / (TP + FN) – how many actual spams were correctly predicted.
+
+What will your model predict for the message: “Congratulations, you’ve won a free trip!”?
+Likely SPAM, as it contains spam-like trigger words.
+
           
           
           """)

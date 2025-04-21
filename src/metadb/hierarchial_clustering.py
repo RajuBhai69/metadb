@@ -46,6 +46,40 @@ plt.show()
 
 
 theory:
+
+What is hierarchical clustering?
+A clustering technique that builds a tree (dendrogram) of nested clusters.
+
+What is the difference between agglomerative and divisive clustering?
+
+Agglomerative: Bottom-up, merging clusters
+
+Divisive: Top-down, splitting clusters
+
+What is a dendrogram?
+A tree diagram showing the hierarchy of clusters and their merging steps.
+
+How do you interpret a dendrogram?
+Cut it horizontally at a given height to form clusters; closer branches = more similar.
+
+What is linkage? Name types of linkage methods.
+Linkage determines how distance between clusters is calculated.
+Types: Single, Complete, Average, Ward’s.
+What is the difference between complete and single linkage?
+
+Complete: Max distance between points in clusters
+Single: Min distance between points
+
+What distance metric did you use and why?
+Euclidean distance—most common for numerical features and easy to interpret.
+
+What happens if we cut the dendrogram at a higher height?
+We get fewer clusters (more general groupings).
+
+How does hierarchical clustering differ from K-Means?
+No need to predefine number of clusters and better for hierarchical data; however, it's slower for large datasets.
+Is hierarchical clustering suitable for large datasets?
+Not ideal—computationally expensive (O(n²) or worse).
  
           
           
