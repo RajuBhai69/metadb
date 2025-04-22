@@ -85,3 +85,64 @@ Not ideal—computationally expensive (O(n²) or worse).
           
           
           """)
+    
+def hierarchial_clusteringmetadb2():
+    print("""
+          #hierarchical----
+# Required libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import AgglomerativeClustering, KMeans
+from sklearn.metrics import adjusted_rand_score
+import scipy.cluster.hierarchy as sch
+
+# Load dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00292/Wholesale%20customers%20data.csv"
+data = pd.read_csv(url)
+
+# Drop categorical columns for clustering
+X = data.drop(columns=["Region", "Channel"])
+
+# Feature Scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+# Hierarchical Clustering - Agglomerative
+agg_cluster = AgglomerativeClustering(n_clusters=3, linkage='complete', affinity='euclidean')
+labels_agg = agg_cluster.fit_predict(X_scaled)
+
+# Plot Dendrogram
+plt.figure(figsize=(12, 6))
+dendrogram = sch.dendrogram(sch.linkage(X_scaled, method='complete', metric='euclidean'))
+plt.axhline(y=15, color='red', linestyle='--')
+plt.title('Dendrogram (Complete Linkage + Euclidean Distance)')
+plt.xlabel('Samples')
+plt.ylabel('Distance')
+plt.tight_layout()
+plt.show()
+
+# Dimensionality Reduction for Visualization
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+# Visualize Agglomerative Clusters
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1], hue=labels_agg, palette='Set2', s=60)
+plt.title('Hierarchical Clustering (Agglomerative) - 2D PCA Plot')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.grid(True)
+plt.legend(title='Cluster')
+plt.tight_layout()
+plt.show()
+
+# K-Means Clustering
+kmeans = KMeans(n_clusters=3, random_state=42)
+labels_kmeans = kmeans.fit_predict(X_scaled)
+
+# Compare Clustering Results
+ari = adjusted_rand_score(labels_agg, labels_kmeans)
+print(f"Adjusted Rand Index between Agglomerative and KMeans: {ari:.2f}")
+""")    

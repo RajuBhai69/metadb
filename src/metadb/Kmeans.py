@@ -77,3 +77,52 @@ No, it works only with numeric data since it relies on Euclidean distance.
 
 
           """)
+    
+def Kmeansmetadb2():
+    print("""
+          #k means---
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Load dataset
+df = pd.read_csv('mall_customers.csv')
+
+# Select features
+X = df[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']]
+
+# Normalize the features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Apply KMeans with k=3
+kmeans = KMeans(n_clusters=3, random_state=42)
+df['Cluster'] = kmeans.fit_predict(X_scaled)
+
+# Visualize the clusters
+plt.figure(figsize=(8, 6))
+sns.scatterplot(
+    x='Annual Income (k$)', 
+    y='Spending Score (1-100)', 
+    hue='Cluster', 
+    palette='viridis', 
+    data=df, 
+    s=100
+)
+plt.title('Customer Segments')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend(title='Cluster')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Cluster characteristics
+print("\nCluster Analysis (Mean Values):")
+print(df.groupby('Cluster')[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']].mean())
+          
+          
+          """)    
+    
