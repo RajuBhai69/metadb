@@ -67,3 +67,40 @@ Likely SPAM, as it contains spam-like trigger words.
           
           
           """)
+    
+def naive_bayesmetadb2():
+    print("""
+        import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load CSV
+df = pd.read_csv('sentiment_data.csv')
+
+# Extract text and labels
+texts = df['text']
+labels = df['label']
+
+# TF-IDF Vectorization
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(texts)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, labels, test_size=0.2, random_state=42)
+
+# Train Naive Bayes model
+model = MultinomialNB()
+model.fit(X_train, y_train)
+
+# Predict
+y_pred = model.predict(X_test)
+
+# Evaluate
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+          
+          
+          """)
