@@ -70,18 +70,18 @@ Likely SPAM, as it contains spam-like trigger words.
     
 def naive_bayesmetadb2():
     print("""
-        import pandas as pd
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
-
-# Load CSV
-df = pd.read_csv('sentiment_data.csv')
+          
+     # Load CSV
+df = pd.read_csv('sentiment_analysis.csv')
 
 # Extract text and labels
 texts = df['text']
-labels = df['label']
+labels = df['sentiment']
 
 # TF-IDF Vectorization
 vectorizer = TfidfVectorizer()
@@ -96,6 +96,16 @@ model.fit(X_train, y_train)
 
 # Predict
 y_pred = model.predict(X_test)
+
+# Define a new sentence for prediction
+new_sentence = ["I love this product! It's amazing."]
+
+# Convert the sentence into TF-IDF format
+X_new = vectorizer.transform(new_sentence)
+
+# Predict sentiment
+predicted_sentiment = model.predict(X_new)
+print("Predicted Sentiment:", predicted_sentiment[0])
 
 # Evaluate
 print("Accuracy:", accuracy_score(y_test, y_pred))
